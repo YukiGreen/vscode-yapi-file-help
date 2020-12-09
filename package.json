@@ -1,0 +1,105 @@
+{
+	"name": "yapi-file-help",
+	"displayName": "Yapi File Help",
+	"description": "Yapi文件创建工具",
+	"version": "0.0.1",
+	"publisher": "SunRising",
+	"icon": "asset/logo.png",
+	"repository": "https://github.com/SunRisingChang/yapi-file-help.git",
+	"engines": {
+		"vscode": "^1.46.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./src/extension.js",
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js",
+		"build": "vsce package"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.addApiFile",
+				"title": "Generate api.ts By Yapi"
+			},
+			{
+				"command": "extension.addInterfaceFile",
+				"title": "Generate interfaces.ts By Yapi"
+			},
+			{
+				"command": "extension.addAngularDirective",
+				"title": "Generate Directive"
+			},
+			{
+				"command": "extension.addAngularPipe",
+				"title": "Generate Pipe"
+			},
+			{
+				"command": "extension.addAngularService",
+				"title": "Generate Service"
+			},
+			{
+				"command": "extension.addAngularRoute",
+				"title": "Generate Route"
+			},
+			{
+				"command": "extension.addAngularModule",
+				"title": "Generate Module"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "extension.addApiFile",
+					"group": "z_commands@1"
+				},
+				{
+					"command": "extension.addInterfaceFile",
+					"group": "z_commands@2"
+				},
+				{
+					"command": "extension.addAngularDirective",
+					"group": "z_commands@3"
+				},
+				{
+					"command": "extension.addAngularPipe",
+					"group": "z_commands@4"
+				},
+				{
+					"command": "extension.addAngularService",
+					"group": "z_commands@5"
+				},
+				{
+					"command": "extension.addAngularRoute",
+					"group": "z_commands@6"
+				},
+				{
+					"command": "extension.addAngularModule",
+					"group": "z_commands@7"
+				}
+			]
+		}
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.11.0",
+		"@types/vscode": "^1.46.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.1.2",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.3.0"
+	},
+	"dependencies": {
+		"fs-extra": "^9.0.1",
+		"request": "^2.88.2",
+		"handlebars": "^4.7.6"
+	}
+}
