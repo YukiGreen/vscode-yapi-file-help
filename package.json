@@ -99,7 +99,8 @@
 	},
 	"dependencies": {
 		"fs-extra": "^9.0.1",
-		"request": "^2.88.2",
-		"handlebars": "^4.7.6"
+		"handlebars": "^4.7.6",
+		"json-schema-to-typescript": "^10.0.0",
+		"request": "^2.88.2"
 	}
 }

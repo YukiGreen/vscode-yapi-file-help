@@ -32,5 +32,30 @@ module.exports = {
     // 获取目标路径
     getFolderPath(agrs) {
         return fs.lstatSync(agrs.fsPath).isDirectory() ? agrs.fsPath : path.dirname(agrs.fsPath)
+    },
+    // 检查配置文件
+    async checkConfig() {
+        const _workspaceFolders = vscode.workspace.workspaceFolders
+        if (_workspaceFolders.length == 0) {
+            throw new Error("未发现可用的工作空间")
+        }
+        const currWorkspaceFolder = _workspaceFolders[0]
+        if (!fs.existsSync(currWorkspaceFolder.uri.fsPath + '/package.json')) {
+            throw new Error("未发现配置文件 package.json ")
+        }
+        const packageObj = fs.readJSONSync(currWorkspaceFolder.uri.fsPath + '/package.json')
+        if (!packageObj["yapiConfig"]) {
+            throw new Error("未发现配置项 package.json [ yapiConfig ] ")
+        }
+        if (!packageObj["yapiConfig"]["token"]) {
+            throw new Error("未发现配置项 package.json [ yapiConfig.token ] ")
+        }
+        if (!packageObj["yapiConfig"]["url"]) {
+            throw new Error("未发现配置项 package.json [ yapiConfig.url ] ")
+        }
+        return {
+            url: packageObj["yapiConfig"]["url"],
+            token: packageObj["yapiConfig"]["token"]
+        }
     }
 }

@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 const handlebars = require("handlebars");
 const path = require("path");
 
-const { getHttpBody, generateUrl, getFolderPath } = require("../utils")
+const { getHttpBody, generateUrl, getFolderPath, checkConfig } = require("../utils")
 
 // 基础配置
 let yapiConfig = {
@@ -13,30 +13,6 @@ let yapiConfig = {
 
 // 项目ID
 let project_id = ""
-
-// 检查配置文件
-async function checkConfig() {
-    const _workspaceFolders = vscode.workspace.workspaceFolders
-    if (_workspaceFolders.length == 0) {
-        throw new Error("未发现可用的工作空间")
-    }
-    const currWorkspaceFolder = _workspaceFolders[0]
-    if (!fs.existsSync(currWorkspaceFolder.uri.fsPath + '/package.json')) {
-        throw new Error("未发现配置文件 package.json ")
-    }
-    const packageObj = fs.readJSONSync(currWorkspaceFolder.uri.fsPath + '/package.json')
-    if (!packageObj["yapiConfig"]) {
-        throw new Error("未发现配置项 package.json [ yapiConfig ] ")
-    }
-    if (!packageObj["yapiConfig"]["token"]) {
-        throw new Error("未发现配置项 package.json [ yapiConfig.token ] ")
-    }
-    if (!packageObj["yapiConfig"]["url"]) {
-        throw new Error("未发现配置项 package.json [ yapiConfig.url ] ")
-    }
-    yapiConfig.url = packageObj["yapiConfig"]["url"]
-    yapiConfig.token = packageObj["yapiConfig"]["token"]
-}
 
 // 获取服务器数据
 async function loadServerData() {
@@ -78,7 +54,9 @@ async function resolveinIntfaceData(serverData) {
 // 处理器
 async function handle(agrs) {
     try {
-        await checkConfig()
+        const { url, token } = await checkConfig()
+        yapiConfig.token = token
+        yapiConfig.url = url
         const serverData = await loadServerData()
         const templateFullStr = await resolveinIntfaceData(serverData, agrs)
         fs.writeFileSync(getFolderPath(agrs) + "/api.ts", templateFullStr)
