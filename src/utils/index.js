@@ -1,6 +1,7 @@
 const request = require("request");
 const path = require("path");
-const fs = require("fs");
+const fs = require('fs-extra')
+const vscode = require('vscode');
 
 module.exports = {
     // 获取连接的html
@@ -33,7 +34,7 @@ module.exports = {
     getFolderPath(agrs) {
         return fs.lstatSync(agrs.fsPath).isDirectory() ? agrs.fsPath : path.dirname(agrs.fsPath)
     },
-    // 检查配置文件
+    // 检查配置
     async checkConfig() {
         const _workspaceFolders = vscode.workspace.workspaceFolders
         if (_workspaceFolders.length == 0) {
@@ -50,12 +51,26 @@ module.exports = {
         if (!packageObj["yapiConfig"]["token"]) {
             throw new Error("未发现配置项 package.json [ yapiConfig.token ] ")
         }
-        if (!packageObj["yapiConfig"]["url"]) {
-            throw new Error("未发现配置项 package.json [ yapiConfig.url ] ")
+        if (!packageObj["yapiConfig"]["baseUrl"]) {
+            throw new Error("未发现配置项 package.json [ yapiConfig.baseUrl ] ")
         }
         return {
-            url: packageObj["yapiConfig"]["url"],
+            baseUrl: packageObj["yapiConfig"]["baseUrl"],
             token: packageObj["yapiConfig"]["token"]
         }
+    },
+    // 处理json-schema
+    handleJsonSchema(jsonSchema, title) {
+        if (jsonSchema.properties) {
+            for (const key in jsonSchema.properties) {
+                if (jsonSchema.properties[key].type == "array") {
+                    Object.assign(jsonSchema.properties[key].items, {
+                        "$ref": "#",
+                        title: `${title}${key}Item`
+                    })
+                }
+            }
+        }
+        return jsonSchema
     }
 }
