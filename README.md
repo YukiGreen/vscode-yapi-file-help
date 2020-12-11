@@ -1,6 +1,6 @@
 # Yapi File Help
 
-> 通过Yapi提供的OpenApi自动生成接口列表、typescript接口文件
+> (内部使用)通过Yapi提供的OpenApi自动生成接口列表、typescript接口文件 
 
 ### 使用
 
