@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs-extra';
+import { compile } from 'json-schema-to-typescript'
 import Axios from 'axios';
 
 // 获取请求体
@@ -68,4 +69,44 @@ export function handleJsonSchema(jsonSchema: any, title: string) {
         }
     }
     return jsonSchema
+}
+
+// 解析接口数据
+export async function resolveinIntfaceData(serverData: any) {
+    if (!serverData.path || !serverData.method) return
+    // ts模板字符串
+    let tsTmp = ""
+    // 文件名称
+    const fileName = generateUrl(serverData)
+    // 处理服务器响应参数
+    if (serverData.res_body_is_json_schema && serverData.res_body) {
+        const title = fileName + "Res"
+        let jsonSchema = await resolveinJsonSchema(serverData.res_body, title)
+        tsTmp = tsTmp + await compile(jsonSchema, title, {
+            bannerComment: getBannerComment(serverData)
+        })
+    }
+    // 处理客户端请求参数
+    if (serverData.req_body_is_json_schema && serverData.req_body_other) {
+        const title = fileName + "Req"
+        let jsonSchema = await resolveinJsonSchema(serverData.req_body_other, title)
+        tsTmp = tsTmp + await compile(jsonSchema, title, {
+            bannerComment: getBannerComment(serverData)
+        })
+    }
+    return { fileName, tsTmp }
+}
+
+// 处理json_schema
+export async function resolveinJsonSchema(data: string, interfaceName: string) {
+    let jsonSchema = JSON.parse(data)
+    if (Object.keys(jsonSchema).length == 0) return
+    delete jsonSchema.title
+    handleJsonSchema(jsonSchema, interfaceName)
+    return jsonSchema
+}
+
+// 获取文件的头部注释
+export function getBannerComment(data: any) {
+    return `/**\n* 作者:${data.username}\n*/`
 }

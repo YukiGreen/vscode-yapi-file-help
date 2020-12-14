@@ -1,15 +1,31 @@
-import { TreeDataProvider, Event, TreeItem, TreeItemCollapsibleState, ProviderResult } from "vscode";
+import { TreeDataProvider, Event, TreeItem, TreeItemCollapsibleState, ProviderResult, ThemeIcon, ThemeColor } from "vscode";
+import { Store } from "../store";
 
 class DataProvider implements TreeDataProvider<DataItem>{
+
     onDidChangeTreeData?: Event<DataItem | null | undefined> | undefined;
-    data: DataItem[];
+    data: DataItem[] = [];
 
     constructor() {
-        this.data = [
-            new DataItem('line1', [new DataItem('line1-sub1'), new DataItem('line1-sub2')]),
-            new DataItem('line2', [new DataItem('line2-sub1'), new DataItem('line2-sub2')]),
-            new DataItem('line3', [new DataItem('line3-sub1'), new DataItem('line3-sub2')])
-        ];
+        this.initData()
+    }
+
+    initData() {
+        const interFaceCat = Store.getStore().getInterFaceCat();
+        interFaceCat.forEach((item: any) => {
+            this.data.push(this.createrCatDataItem(item))
+        });
+    }
+
+    // 创建分类节点
+    createrCatDataItem(catData: any): DataItem {
+        let interFaces: DataItem[] = []
+        if (Array.isArray(catData.interFaces)) {
+            catData.interFaces.forEach((item: any) => {
+                interFaces.push(new DataItem(item, item.path, item.title))
+            });
+        }
+        return new DataItem(catData, catData.name, undefined, interFaces)
     }
 
     getTreeItem(element: DataItem): TreeItem | Thenable<TreeItem> {
@@ -26,12 +42,21 @@ class DataProvider implements TreeDataProvider<DataItem>{
 
 
 class DataItem extends TreeItem {
-    public children: DataItem[] | undefined;
 
-    constructor(label: string, children?: DataItem[] | undefined) {
+    public children: DataItem[] | undefined;
+    // 完整的节点数据
+    public data: any | undefined;
+
+    constructor(data: any, label: string, tooltip: string | undefined, children?: DataItem[] | undefined) {
         super(label, children === undefined ? TreeItemCollapsibleState.None : TreeItemCollapsibleState.Collapsed);
         this.children = children;
+        this.tooltip = tooltip;
+        this.contextValue = children === undefined ? "file" : 'folder'
+        this.data = data
+        this.iconPath = children === undefined ? new ThemeIcon("symbol-interface") : new ThemeIcon("debug-stackframe")
     }
+
+
 }
 
 export { DataProvider } 

@@ -2,7 +2,8 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs-extra';
 import * as handlebars from 'handlebars';
-import { generateUrl, getFolderPath, checkConfig, getHttpBody } from "../../utils"
+import { generateUrl, getFolderPath } from "../../utils"
+import { Store } from '../../store';
 
 class CreateApiFile {
 
@@ -22,26 +23,7 @@ class CreateApiFile {
     }
 
     async run() {
-        // 检查配置项
-        const { baseUrl, token } = await checkConfig()
-        Object.assign(this.yapiConfig, { baseUrl, token })
-        await this.loadServerData()
-    }
-
-    // 获取服务器数据
-    async loadServerData() {
-        // 获取项目id
-        const resp: any = await getHttpBody(this.yapiConfig.baseUrl + "/api/project/get", {
-            token: this.yapiConfig.token
-        })
-        // 获取接口集合
-        const resp2: any = await getHttpBody(this.yapiConfig.baseUrl + "/api/interface/list", {
-            token: this.yapiConfig.token,
-            project_id: resp.data.uid,
-            page: 1,
-            limit: 1000
-        })
-        await this.resolveinIntfaceData(resp2.data.list)
+        await this.resolveinIntfaceData(Store.getStore().getInterFaceList())
     }
 
     // 解析接口数据
@@ -69,8 +51,6 @@ class CreateApiFile {
 // 处理器
 async function handle(agrs: any) {
     try {
-        console.log(1111111);
-
         await new CreateApiFile(agrs).run()
         vscode.window.showInformationMessage("api.ts创建完成!")
     } catch (error) {

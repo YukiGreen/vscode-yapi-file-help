@@ -32,17 +32,48 @@
 			{
 				"command": "extension.addInterfaceFile",
 				"title": "Generate interfaces.ts By Yapi"
+			},
+			{
+				"command": "extension.refresh",
+				"title": "刷新",
+				"icon": "$(refresh)"
+			},
+			{
+				"command": "extension.copyApi",
+				"title": "生成 api 至剪贴板"
+			},
+			{
+				"command": "extension.copyInterFace",
+				"title": "生成 typing 至剪贴板"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
 					"command": "extension.addApiFile",
-					"group": "z_commands@1"
+					"group": "y_commands@1"
 				},
 				{
 					"command": "extension.addInterfaceFile",
-					"group": "z_commands@2"
+					"group": "y_commands@2"
+				}
+			],
+			"view/title": [
+				{
+					"command": "extension.refresh",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "extension.copyApi",
+					"when": "viewItem == file",
+					"group": "navigation@1"
+				},
+				{
+					"command": "extension.copyInterFace",
+					"when": "viewItem == file",
+					"group": "navigation@2"
 				}
 			]
 		},
@@ -80,6 +111,7 @@
 	"dependencies": {
 		"@types/fs-extra": "^9.0.5",
 		"axios": "^0.21.0",
+		"clipboardy": "^2.3.0",
 		"fs-extra": "^9.0.1",
 		"handlebars": "^4.7.6",
 		"json-schema-to-typescript": "^10.0.0"
