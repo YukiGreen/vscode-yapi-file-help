@@ -2,7 +2,7 @@
 	"name": "yapi-file-help",
 	"displayName": "Yapi File Help",
 	"description": "Yapi文件创建工具",
-	"version": "0.0.1",
+	"version": "0.0.3",
 	"publisher": "SunRising",
 	"icon": "asset/logo.png",
 	"repository": "https://github.com/SunRisingChang/yapi-file-help.git",
@@ -13,7 +13,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*"
+		"workspaceContains:**/package.json"
 	],
 	"main": "./out/extension.js",
 	"scripts": {
@@ -96,13 +96,15 @@
 		}
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.51.0",
 		"@types/glob": "^7.1.3",
+		"@types/lodash": "^4.14.165",
 		"@types/mocha": "^8.0.4",
 		"@types/node": "^12.11.7",
-		"eslint": "^7.15.0",
+		"@types/prettier": "^2.1.5",
+		"@types/vscode": "^1.51.0",
 		"@typescript-eslint/eslint-plugin": "^4.9.0",
 		"@typescript-eslint/parser": "^4.9.0",
+		"eslint": "^7.15.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.1.3",
 		"typescript": "^4.1.2",

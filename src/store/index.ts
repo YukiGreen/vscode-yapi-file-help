@@ -67,6 +67,7 @@ export class Store {
             }
 
             this.interFaceCat = resp2.data
+            vscode.window.showInformationMessage("Yapi 数据拉取成功！")
         } catch (error) {
             console.log(error);
             vscode.window.showErrorMessage(error.message)
