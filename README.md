@@ -16,3 +16,6 @@ package.json
 
 - Generate api.ts By Yapi
 - Generate interfaces.ts By Yapi
+- activitybar 
+- 生成 api 至剪贴板
+- 生成 typing 至剪贴板
