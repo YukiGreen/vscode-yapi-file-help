@@ -1,3 +1,4 @@
+import { CopyAllApiHandle } from "./handles/copyAllApiHandle"
 import { CopyApiHandle } from "./handles/copyApiHandle"
 import { CopyInterFaceHandle } from "./handles/copyInterFaceHandle"
 import { CreateApiFileHandle } from "./handles/createApiFileHandle"
@@ -24,6 +25,10 @@ const menus = [
     {
         command: "extension.copyInterFace",
         handle: CopyInterFaceHandle
+    },
+    {
+        command: "extension.copyAllApi",
+        handle: CopyAllApiHandle
     }
 ]
 

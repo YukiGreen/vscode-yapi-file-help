@@ -1,7 +1,11 @@
+{{#if isPrefix}}
 export const API = {
+{{/if}}
     {{#each interfaceArray}} 
     // {{desc}}
     {{key}}:"{{value}}",
     {{/each}}
+{{#if isPrefix}}
 }
+{{/if}}
 

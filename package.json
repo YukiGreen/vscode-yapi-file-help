@@ -2,7 +2,7 @@
 	"name": "yapi-file-help",
 	"displayName": "Yapi File Help",
 	"description": "Yapi文件创建工具",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "SunRising",
 	"icon": "asset/logo.png",
 	"repository": "https://github.com/SunRisingChang/yapi-file-help.git",
@@ -39,6 +39,11 @@
 				"icon": "$(refresh)"
 			},
 			{
+				"command": "extension.copyAllApi",
+				"title": "生成全部 api 至剪贴板",
+				"icon": "$(files)"
+			},
+			{
 				"command": "extension.copyApi",
 				"title": "生成 api 至剪贴板"
 			},
@@ -60,8 +65,12 @@
 			],
 			"view/title": [
 				{
+					"command": "extension.copyAllApi",
+					"group": "navigation@1"
+				},
+				{
 					"command": "extension.refresh",
-					"group": "navigation"
+					"group": "navigation@2"
 				}
 			],
 			"view/item/context": [

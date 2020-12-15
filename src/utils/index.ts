@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs-extra';
+import * as handlebars from 'handlebars';
 import { compile } from 'json-schema-to-typescript'
 import Axios from 'axios';
 
@@ -95,6 +96,28 @@ export async function resolveinIntfaceData(serverData: any) {
         })
     }
     return { fileName, tsTmp }
+}
+
+// 解析API数据
+export async function resolveinApiData(serverData: any[], isPrefix: boolean = true) {
+    let _serverData: any[] = []
+    if (Array.isArray(serverData)) {
+        serverData.forEach(item => {
+            _serverData.push({
+                desc: item.title,
+                key: generateUrl(item),
+                value: item.path
+            })
+        })
+    }
+    if (_serverData.length == 0) return
+    const tmpStr = fs.readFileSync(path.resolve(__dirname, `../../templates/api.ts.tmpl`), 'utf-8')
+    const template = handlebars.compile(tmpStr);
+    let templateFullStr = template({
+        interfaceArray: _serverData,
+        isPrefix
+    })
+    return templateFullStr
 }
 
 // 处理json_schema

@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
-import * as path from 'path';
 import * as fs from 'fs-extra';
-import * as handlebars from 'handlebars';
-import { generateUrl, getFolderPath } from "../../utils"
+import { getFolderPath, resolveinApiData } from "../../utils"
 import { Store } from '../../store';
 
 class CreateApiFile {
@@ -23,27 +21,9 @@ class CreateApiFile {
     }
 
     async run() {
-        await this.resolveinIntfaceData(Store.getStore().getInterFaceList())
-    }
-
-    // 解析接口数据
-    async resolveinIntfaceData(serverData: any[]) {
-        let _serverData: any[] = []
-        if (Array.isArray(serverData)) {
-            serverData.forEach(item => {
-                _serverData.push({
-                    desc: item.title,
-                    key: generateUrl(item),
-                    value: item.path
-                })
-            })
-        }
-        const tmpStr = fs.readFileSync(path.resolve(__dirname, `../../../templates/api.ts.tmpl`), 'utf-8')
-        const template = handlebars.compile(tmpStr);
-        let templateFullStr = template({
-            interfaceArray: _serverData
-        })
-        fs.writeFileSync(this.workspaceRootPath + "/api.ts", templateFullStr)
+        let templateFullStr = await resolveinApiData(Store.getStore().getInterFaceList())
+        if (templateFullStr)
+            fs.writeFileSync(this.workspaceRootPath + "/api.ts", templateFullStr)
     }
 
 }
