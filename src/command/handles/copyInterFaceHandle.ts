@@ -1,10 +1,12 @@
 import { writeSync } from 'clipboardy';
 import * as vscode from 'vscode';
+import { Store } from '../../store';
 import { resolveinIntfaceData } from '../../utils';
 
 // 处理器
 async function handle(agrs: any) {
     try {
+        await Store.getStore().isInit()
         let obj = await resolveinIntfaceData(agrs.data.details)
         if (obj) {
             writeSync(obj.tsTmp)

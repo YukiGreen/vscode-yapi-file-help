@@ -6,6 +6,7 @@ import { Store } from '../../store';
 // 处理器
 async function handle(agrs: any) {
     try {
+        await Store.getStore().isInit()
         let templateFullStr = await resolveinApiData(Store.getStore().getInterFaceList(), false)
         if (templateFullStr) {
             writeSync(templateFullStr)

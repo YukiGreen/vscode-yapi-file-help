@@ -38,18 +38,18 @@ export async function checkConfig() {
         throw new Error("未发现可用的工作空间")
     }
     const currWorkspaceFolder = _workspaceFolders[0]
-    if (!fs.existsSync(currWorkspaceFolder.uri.fsPath + '/package.json')) {
-        throw new Error("未发现配置文件 package.json ")
+    if (!fs.existsSync(currWorkspaceFolder.uri.fsPath + '/yapi.conf.json')) {
+        throw new Error("未发现配置文件 yapi.conf.json ")
     }
-    const packageObj = fs.readJSONSync(currWorkspaceFolder.uri.fsPath + '/package.json')
+    const packageObj = fs.readJSONSync(currWorkspaceFolder.uri.fsPath + '/yapi.conf.json')
     if (!packageObj["yapiConfig"]) {
-        throw new Error("未发现配置项 package.json [ yapiConfig ] ")
+        throw new Error("未发现配置项 yapi.conf.json [ yapiConfig ] ")
     }
     if (!packageObj["yapiConfig"]["token"]) {
-        throw new Error("未发现配置项 package.json [ yapiConfig.token ] ")
+        throw new Error("未发现配置项 yapi.conf.json [ yapiConfig.token ] ")
     }
     if (!packageObj["yapiConfig"]["baseUrl"]) {
-        throw new Error("未发现配置项 package.json [ yapiConfig.baseUrl ] ")
+        throw new Error("未发现配置项 yapi.conf.json [ yapiConfig.baseUrl ] ")
     }
     return {
         baseUrl: packageObj["yapiConfig"]["baseUrl"],

@@ -2,7 +2,7 @@
 	"name": "yapi-file-help",
 	"displayName": "Yapi File Help",
 	"description": "Yapi文件创建工具",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "SunRising",
 	"icon": "asset/logo.png",
 	"repository": "https://github.com/SunRisingChang/yapi-file-help.git",
@@ -13,7 +13,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"workspaceContains:**/package.json"
+		"workspaceContains:**/yapi.conf.json"
 	],
 	"main": "./out/extension.js",
 	"scripts": {
@@ -56,20 +56,24 @@
 			"explorer/context": [
 				{
 					"command": "extension.addApiFile",
+					"when": "button.addApiFile",
 					"group": "y_commands@1"
 				},
 				{
 					"command": "extension.addInterfaceFile",
+					"when": "button.addInterfaceFile",
 					"group": "y_commands@2"
 				}
 			],
 			"view/title": [
 				{
 					"command": "extension.copyAllApi",
+					"when": "button.copyAllApi",
 					"group": "navigation@1"
 				},
 				{
 					"command": "extension.refresh",
+					"when": "button.refresh",
 					"group": "navigation@2"
 				}
 			],

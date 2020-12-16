@@ -31,6 +31,7 @@ class CreateApiFile {
 // 处理器
 async function handle(agrs: any) {
     try {
+        await Store.getStore().isInit()
         await new CreateApiFile(agrs).run()
         vscode.window.showInformationMessage("api.ts创建完成!")
     } catch (error) {

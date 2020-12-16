@@ -12,6 +12,9 @@ export class Store {
 
     private static store: Store
 
+    // 初始化标识
+    private initFlag: boolean = false
+
     // 接口集合
     private interFaceCat: any[] = []
 
@@ -67,6 +70,7 @@ export class Store {
             }
 
             this.interFaceCat = resp2.data
+            this.initFlag = true
             vscode.window.showInformationMessage("Yapi 数据拉取成功！")
         } catch (error) {
             console.log(error);
@@ -86,6 +90,16 @@ export class Store {
     // 获取全部接口分类
     getInterFaceCat(): any[] {
         return this.interFaceCat
+    }
+
+    // 是否进行了初始化
+    async isInit() {
+        if (!this.initFlag) {
+            throw new Error("Yapi 未进行初始化，原因可能是未配置 yapi.conf.json ");
+        }
+        if (this.interFaceCat.length == 0) {
+            throw new Error("未拉取到 Yapi 数据.");
+        }
     }
 
 }

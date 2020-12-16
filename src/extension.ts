@@ -12,6 +12,11 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	console.log("yapi-file-help 扩展启用");
 
+	vscode.commands.executeCommand('setContext', 'button.addApiFile', true);
+	vscode.commands.executeCommand('setContext', 'button.addInterfaceFile', true);
+	vscode.commands.executeCommand('setContext', 'button.copyAllApi', true);
+	vscode.commands.executeCommand('setContext', 'button.refresh', true);
+
 	await Store.getStore().initStore()
 
 	for (const item of menus) {

@@ -35,6 +35,7 @@ class CreateInterfaceFile {
 // 处理器
 async function handle(agrs: any) {
     try {
+        await Store.getStore().isInit()
         await new CreateInterfaceFile(agrs).run()
         vscode.window.showInformationMessage("interfaces.ts创建完成!")
     } catch (error) {
