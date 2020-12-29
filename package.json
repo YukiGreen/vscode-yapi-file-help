@@ -68,7 +68,7 @@
 			"view/title": [
 				{
 					"command": "extension.copyAllApi",
-					"when": "button.copyAllApi",
+					"when": "aaaa",
 					"group": "navigation@1"
 				},
 				{

@@ -16,6 +16,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.executeCommand('setContext', 'button.addInterfaceFile', true);
 	vscode.commands.executeCommand('setContext', 'button.copyAllApi', true);
 	vscode.commands.executeCommand('setContext', 'button.refresh', true);
+	context.globalState.update("aaaa", true)
+	console.log(context.globalState.get("aaaa"));
+	console.log(context.globalState.get("button.addInterfaceFile"));
+	context.workspaceState.update("aaaa", true)
+	console.log(context.workspaceState.get("button.addInterfaceFile"));
+
 
 	await Store.getStore().initStore()
 
