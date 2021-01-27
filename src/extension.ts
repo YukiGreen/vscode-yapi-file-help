@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
 import { menus } from './command';
-import { Store } from './store';
-import { DataProvider } from './view-bar/DataProvider';
+import { ConfigService } from './services/ConfigService';
+import { YapiService } from './services/YapiService';
+import { GlobalStore } from './store/GlobalStore';
+import { YapiMenuView } from './view-bar/YapiMenuView';
 
 
 /**
@@ -10,27 +12,56 @@ import { DataProvider } from './view-bar/DataProvider';
  */
 export async function activate(context: vscode.ExtensionContext) {
 
-	console.log("yapi-file-help 扩展启用");
+	console.log("yapi-to-angular 扩展启用");
 
-	vscode.commands.executeCommand('setContext', 'button.addApiFile', true);
-	vscode.commands.executeCommand('setContext', 'button.addInterfaceFile', true);
-	vscode.commands.executeCommand('setContext', 'button.copyAllApi', true);
-	vscode.commands.executeCommand('setContext', 'button.refresh', true);
-	context.globalState.update("aaaa", true)
-	console.log(context.globalState.get("aaaa"));
-	console.log(context.globalState.get("button.addInterfaceFile"));
-	context.workspaceState.update("aaaa", true)
-	console.log(context.workspaceState.get("button.addInterfaceFile"));
-
-
-	await Store.getStore().initStore()
-
+	// 注册命令
 	for (const item of menus) {
-		context.subscriptions.push(vscode.commands.registerCommand(item.command, args => item.handle(args)));
+		context.subscriptions.push(vscode.commands.registerCommand(item.command, args => item.handle(args, item.command)));
 	}
 
-	vscode.window.registerTreeDataProvider("yapi-file-help-menu-view", new DataProvider());
+	// 初始化仓库
+	GlobalStore.init(context)
 
+	await initEnv()
+
+}
+
+export async function initEnv() {
+	// 检查环境
+	if (await ConfigService.check(true)) {
+		// 初始化Yapi数据
+		await YapiService.getYapiService().init()
+		// 显示操作按钮
+		GlobalStore.getStore().setGlobalContextValue("button.addApiFile", true)
+		GlobalStore.getStore().setGlobalContextValue("button.addInterfaceFile", true)
+		GlobalStore.getStore().setGlobalContextValue("button.copyAllApi", true)
+
+		GlobalStore.getStore().setGlobalContextValue("button.findApi", true)
+		GlobalStore.getStore().setGlobalContextValue("button.resetApiList", false)
+
+		GlobalStore.getStore().setGlobalContextValue("button.showApiTitle", true)
+		GlobalStore.getStore().setGlobalContextValue("button.showApiPath", false)
+
+		GlobalStore.getStore().setGlobalContextValue("button.collapseAll", true)
+		GlobalStore.getStore().setGlobalContextValue("button.expandAll", false)
+
+		// 注册侧边菜单
+		vscode.window.registerTreeDataProvider("yapi-menu-view", YapiMenuView.getYapiMenuView())
+
+	} else {
+		GlobalStore.getStore().setGlobalContextValue("button.addApiFile", false)
+		GlobalStore.getStore().setGlobalContextValue("button.addInterfaceFile", false)
+		GlobalStore.getStore().setGlobalContextValue("button.copyAllApi", false)
+
+		GlobalStore.getStore().setGlobalContextValue("button.findApi", false)
+		GlobalStore.getStore().setGlobalContextValue("button.resetApiList", false)
+
+		GlobalStore.getStore().setGlobalContextValue("button.showApiTitle", false)
+		GlobalStore.getStore().setGlobalContextValue("button.showApiPath", false)
+
+		GlobalStore.getStore().setGlobalContextValue("button.collapseAll", false)
+		GlobalStore.getStore().setGlobalContextValue("button.expandAll", false)
+	}
 }
 
 /**

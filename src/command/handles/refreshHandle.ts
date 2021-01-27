@@ -1,11 +1,10 @@
-import * as vscode from 'vscode';
-import { Store } from '../../store';
-import { DataProvider } from '../../view-bar/DataProvider';
+import { initEnv } from '../../extension';
+import { YapiMenuView } from '../../view-bar/YapiMenuView';
 
 // 处理器
-async function handle(agrs: any) {
-    await Store.getStore().initStore()
-    vscode.window.registerTreeDataProvider("yapi-file-help-menu-view", new DataProvider());
+async function handle(agrs: any, command: string) {
+    await initEnv()
+    YapiMenuView.getYapiMenuView().refresh(false)
 }
 
 export { handle as RefreshHandle }

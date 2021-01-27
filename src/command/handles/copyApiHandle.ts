@@ -1,12 +1,17 @@
+/**
+ * @Author: Sun Rising 
+ * @Date: 2020-12-30 10:35:08 
+ * @Last Modified by: Sun Rising 
+ * @Last Modified time: 2020-12-30 10:35:08 
+ * @Description: 复制api接口到剪贴板
+ */
 import * as vscode from 'vscode';
 import { writeSync } from "clipboardy";
 import { generateUrl } from '../../utils';
-import { Store } from '../../store';
 
 // 处理器
-async function handle(agrs: any) {
+async function handle(agrs: any, command: string) {
     try {
-        await Store.getStore().isInit()
         writeSync(`
         // ${agrs.tooltip}
         ${generateUrl(agrs.data)}:"${agrs.label}",`)

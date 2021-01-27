@@ -2,7 +2,7 @@
 	"name": "yapi-file-help",
 	"displayName": "Yapi File Help",
 	"description": "Yapi文件创建工具",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"publisher": "SunRising",
 	"icon": "asset/logo.png",
 	"repository": "https://github.com/SunRisingChang/yapi-file-help.git",
@@ -40,16 +40,52 @@
 			},
 			{
 				"command": "extension.copyAllApi",
-				"title": "生成全部 api 至剪贴板",
-				"icon": "$(files)"
+				"title": "生成全部 Api 至剪贴板",
+				"icon": "$(clippy)"
+			},
+			{
+				"command": "extension.findApi",
+				"title": "查找 Api",
+				"icon": "$(search)"
+			},
+			{
+				"command": "extension.resetApiList",
+				"title": "重置 Api 列表",
+				"icon": "$(discard)"
+			},
+			{
+				"command": "extension.showApiTitle",
+				"title": "显示 Api 标题",
+				"icon": "$(list-filter)"
+			},
+			{
+				"command": "extension.showApiPath",
+				"title": "显示 Api 路径",
+				"icon": "$(list-flat)"
 			},
 			{
 				"command": "extension.copyApi",
-				"title": "生成 api 至剪贴板"
+				"title": "生成 Api 至剪贴板",
+				"icon": "$(files)"
 			},
 			{
 				"command": "extension.copyInterFace",
-				"title": "生成 typing 至剪贴板"
+				"title": "生成 Generic 至剪贴板",
+				"icon": "$(json)"
+			},
+			{
+				"command": "extension.expandAll",
+				"title": "展开全部",
+				"icon": "$(expand-all)"
+			},
+			{
+				"command": "extension.collapseAll",
+				"title": "收起全部",
+				"icon": "$(collapse-all)"
+			},
+			{
+				"command": "extension.openUrl",
+				"title": "详情"
 			}
 		],
 		"menus": {
@@ -67,26 +103,60 @@
 			],
 			"view/title": [
 				{
-					"command": "extension.copyAllApi",
-					"when": "aaaa",
+					"command": "extension.findApi",
+					"when": "button.findApi",
 					"group": "navigation@1"
 				},
 				{
-					"command": "extension.refresh",
-					"when": "button.refresh",
+					"command": "extension.resetApiList",
+					"when": "button.resetApiList",
 					"group": "navigation@2"
+				},
+				{
+					"command": "extension.showApiTitle",
+					"when": "button.showApiPath",
+					"group": "navigation@3"
+				},
+				{
+					"command": "extension.showApiPath",
+					"when": "button.showApiTitle",
+					"group": "navigation@4"
+				},
+				{
+					"command": "extension.copyAllApi",
+					"when": "button.copyAllApi",
+					"group": "navigation@5"
+				},
+				{
+					"command": "extension.refresh",
+					"group": "navigation@6"
+				},
+				{
+					"command": "extension.expandAll",
+					"when": "button.collapseAll",
+					"group": "navigation@7"
+				},
+				{
+					"command": "extension.collapseAll",
+					"when": "button.expandAll",
+					"group": "navigation@8"
 				}
 			],
 			"view/item/context": [
 				{
 					"command": "extension.copyApi",
 					"when": "viewItem == file",
-					"group": "navigation@1"
+					"group": "inline"
 				},
 				{
 					"command": "extension.copyInterFace",
 					"when": "viewItem == file",
-					"group": "navigation@2"
+					"group": "inline"
+				},
+				{
+					"command": "extension.openUrl",
+					"when": "viewItem == file",
+					"group": "navigation@3"
 				}
 			]
 		},
@@ -94,7 +164,7 @@
 			"activitybar": [
 				{
 					"id": "yapiList",
-					"title": "Yapi File Help",
+					"title": "Yapi To Angular",
 					"icon": "asset/Yapi.svg"
 				}
 			]
@@ -102,7 +172,7 @@
 		"views": {
 			"yapiList": [
 				{
-					"id": "yapi-file-help-menu-view",
+					"id": "yapi-menu-view",
 					"name": "接口清单"
 				}
 			]

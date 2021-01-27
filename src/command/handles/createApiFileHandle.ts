@@ -1,7 +1,14 @@
+/**
+ * @Author: Sun Rising 
+ * @Date: 2020-12-30 10:30:09 
+ * @Last Modified by: Sun Rising 
+ * @Last Modified time: 2020-12-30 10:30:09 
+ * @Description: 创建API清单文件
+ */
 import * as vscode from 'vscode';
 import * as fs from 'fs-extra';
 import { getFolderPath, resolveinApiData } from "../../utils"
-import { Store } from '../../store';
+import { YapiService } from '../../services/YapiService';
 
 class CreateApiFile {
 
@@ -21,7 +28,7 @@ class CreateApiFile {
     }
 
     async run() {
-        let templateFullStr = await resolveinApiData(Store.getStore().getInterFaceList())
+        let templateFullStr = await resolveinApiData(YapiService.getYapiService().getInterFaceList())
         if (templateFullStr)
             fs.writeFileSync(this.workspaceRootPath + "/api.ts", templateFullStr)
     }
@@ -29,9 +36,8 @@ class CreateApiFile {
 }
 
 // 处理器
-async function handle(agrs: any) {
+async function handle(agrs: any, command: string) {
     try {
-        await Store.getStore().isInit()
         await new CreateApiFile(agrs).run()
         vscode.window.showInformationMessage("api.ts创建完成!")
     } catch (error) {
