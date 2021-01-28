@@ -129,6 +129,7 @@
 				},
 				{
 					"command": "extension.refresh",
+					"when": "button.copyAllApi",
 					"group": "navigation@6"
 				},
 				{
@@ -164,7 +165,7 @@
 			"activitybar": [
 				{
 					"id": "yapiList",
-					"title": "Yapi To Angular",
+					"title": "Yapi File Help",
 					"icon": "asset/Yapi.svg"
 				}
 			]
