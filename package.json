@@ -13,7 +13,7 @@
 		"Other"
 	],
 	"activationEvents": [
-		"workspaceContains:**/yapi.conf.json"
+		"*"
 	],
 	"main": "./out/extension.js",
 	"scripts": {
@@ -129,7 +129,6 @@
 				},
 				{
 					"command": "extension.refresh",
-					"when": "button.copyAllApi",
 					"group": "navigation@6"
 				},
 				{

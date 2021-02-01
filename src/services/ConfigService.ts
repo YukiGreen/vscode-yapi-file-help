@@ -2,7 +2,7 @@
  * @Author: Sun Rising
  * @Date: 2020-12-26 13:23:48
  * @Last Modified by: Sun Rising
- * @Last Modified time: 2020-12-26 13:40:58
+ * @Last Modified time: 2021-02-01 10:07:24
  * @Description: 配置检测
  */
 import * as vscode from 'vscode';

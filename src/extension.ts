@@ -22,7 +22,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	// 初始化仓库
 	GlobalStore.init(context)
 
-	await initEnv()
+	initEnv()
 
 }
 
