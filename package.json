@@ -2,7 +2,7 @@
 	"name": "yapi-file-help",
 	"displayName": "Yapi File Help",
 	"description": "Yapi文件创建工具",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"publisher": "SunRising",
 	"icon": "asset/logo.png",
 	"repository": "https://github.com/SunRisingChang/yapi-file-help.git",
@@ -104,58 +104,59 @@
 			"view/title": [
 				{
 					"command": "extension.findApi",
-					"when": "button.findApi",
+					"when": "view =~ /yapi-menu/ && button.findApi",
 					"group": "navigation@1"
 				},
 				{
 					"command": "extension.resetApiList",
-					"when": "button.resetApiList",
+					"when": "view =~ /yapi-menu/ && button.resetApiList",
 					"group": "navigation@2"
 				},
 				{
 					"command": "extension.showApiTitle",
-					"when": "button.showApiPath",
+					"when": "view =~ /yapi-menu/ && button.showApiPath",
 					"group": "navigation@3"
 				},
 				{
 					"command": "extension.showApiPath",
-					"when": "button.showApiTitle",
+					"when": "view =~ /yapi-menu/ && button.showApiTitle",
 					"group": "navigation@4"
 				},
 				{
 					"command": "extension.copyAllApi",
-					"when": "button.copyAllApi",
+					"when": "view =~ /yapi-menu/ && button.copyAllApi",
 					"group": "navigation@5"
 				},
 				{
 					"command": "extension.refresh",
+					"when": "view =~ /yapi-menu/",
 					"group": "navigation@6"
 				},
 				{
 					"command": "extension.expandAll",
-					"when": "button.collapseAll",
+					"when": "view =~ /yapi-menu/ && button.collapseAll",
 					"group": "navigation@7"
 				},
 				{
 					"command": "extension.collapseAll",
-					"when": "button.expandAll",
+					"when": "view =~ /yapi-menu/ && button.expandAll",
 					"group": "navigation@8"
 				}
 			],
 			"view/item/context": [
 				{
 					"command": "extension.copyApi",
-					"when": "viewItem == file",
+					"when": "view =~ /yapi-menu/ && viewItem == file",
 					"group": "inline"
 				},
 				{
 					"command": "extension.copyInterFace",
-					"when": "viewItem == file",
+					"when": "view =~ /yapi-menu/ && viewItem == file",
 					"group": "inline"
 				},
 				{
 					"command": "extension.openUrl",
-					"when": "viewItem == file",
+					"when": "view =~ /yapi-menu/ && viewItem == file",
 					"group": "navigation@3"
 				}
 			]

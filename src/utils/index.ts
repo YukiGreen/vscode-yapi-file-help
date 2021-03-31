@@ -9,7 +9,8 @@ var template = require('lodash/template');
 export function generateUrl(intfaceItem: any) {
     let str_arr = [intfaceItem.method, ...intfaceItem.path.split("/").filter((item: any) => item.length > 0)]
     let _str_arr = str_arr.map((item, index) => {
-        let _item = item.replace(/[\{\}]/g, "").toLowerCase().split("")
+        if (index === 0) item = item.toLocaleLowerCase()
+        let _item = item.replace(/[\{\}]/g, "").split("")
         if (index != 0)
             _item[0] = _item[0].toUpperCase()
         return _item.join("")

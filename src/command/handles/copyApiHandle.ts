@@ -13,8 +13,8 @@ import { generateUrl } from '../../utils';
 async function handle(agrs: any, command: string) {
     try {
         writeSync(`
-        // ${agrs.tooltip}
-        ${generateUrl(agrs.data)}:"${agrs.label}",`)
+        // ${agrs.data.title}
+        ${generateUrl(agrs.data)}:"${agrs.data.path}",`)
         vscode.window.showInformationMessage("已生成 api 至剪贴板！")
     } catch (error) {
         console.log(error);
