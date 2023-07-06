@@ -22,3 +22,5 @@
 
 学习vscode插件开发参考笔记：http://blog.haoji.me/vscode-plugin-overview.html
 
+相关功能图片
+![Alt text](image-1.png)
