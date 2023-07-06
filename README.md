@@ -1,6 +1,5 @@
-# Yapi File Help
+# vscode插件开发项目demo：Yapi File Help
 
-## 注意：该插件未经过测试，可能随时下架！！！
 
 > 通过 Yapi 提供的 OpenApi 自动生成接口列表、typescript 接口文件
 
@@ -20,3 +19,6 @@
 - 提供可视化的侧边窗口
 - 生成 api 至剪贴板
 - 生成 typing 至剪贴板
+
+学习vscode插件开发参考笔记：http://blog.haoji.me/vscode-plugin-overview.html
+

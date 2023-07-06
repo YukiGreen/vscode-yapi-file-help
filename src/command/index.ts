@@ -11,7 +11,7 @@ import { ResetApiListHandle } from "./handles/resetApiListHandle"
 import { TitleSwitchHandle } from "./handles/titleSwitchHandle"
 
 const menus = [
-    // ----------------- explorer/context 开始 -----------------------
+    // ----------------- explorer/context// 资源管理器右键菜单（也就是工程项目，选中一个文件或者文件夹，右键菜单） 开始 -----------------------
     {
         // 创建API清单文件
         command: "extension.addApiFile",
@@ -23,7 +23,7 @@ const menus = [
         handle: CreateInterfaceFileHandle
     },
     // ----------------- explorer/context 结束 -----------------------
-    // ----------------- view/title 开始 -----------------------
+    // ----------------- view/title（左侧打开的view中的标题部分按钮） 开始 -----------------------
     {
         // 刷新yapi数据
         command: "extension.refresh",

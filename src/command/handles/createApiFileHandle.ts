@@ -12,7 +12,7 @@ import { YapiService } from "../../services/YapiService";
 
 class CreateApiFile {
   // 工作空间根路径
-  workspaceRootPath = "";
+  workspaceRootPath = ""; // 获取的是选中的文件或文件夹的文件夹路径。
 
   // yapi配置
   yapiConfig = {
@@ -22,6 +22,7 @@ class CreateApiFile {
     token: "",
   };
 
+  // 右键文件或者文件夹，得到agrs
   constructor(agrs: any) {
     this.workspaceRootPath = getFolderPath(agrs);
   }
